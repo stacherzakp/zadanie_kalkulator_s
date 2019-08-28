@@ -1,4 +1,5 @@
 calculator:
+  systemCurrency: PLN
   workingDaysInMonth: 22
   countryRates:
     - countryCode: PL

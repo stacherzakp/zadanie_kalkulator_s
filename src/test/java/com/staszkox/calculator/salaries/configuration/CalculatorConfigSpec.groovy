@@ -13,6 +13,7 @@ class CalculatorConfigSpec extends Specification {
     def "Test calculator load correctness"() {
 
         expect:
+            config.systemCurrency == "PLN"
             config.workingDaysInMonth == 22
             config.countryRates.length == 3
             config.countryRates[0].countryCode == "PL"

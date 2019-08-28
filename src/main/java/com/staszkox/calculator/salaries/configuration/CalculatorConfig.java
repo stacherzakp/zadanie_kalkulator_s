@@ -8,12 +8,18 @@ import java.util.List;
 @ConfigurationProperties(prefix = "calculator", ignoreInvalidFields = true)
 public class CalculatorConfig {
 
+    private final String systemCurrency;
     private final int workingDaysInMonth;
     private final CountryRate[] countryRates;
 
-    public CalculatorConfig(int workingDaysInMonth, CountryRate[] countryRates) {
+    public CalculatorConfig(String systemCurrency, int workingDaysInMonth, CountryRate[] countryRates) {
+        this.systemCurrency = systemCurrency;
         this.workingDaysInMonth = workingDaysInMonth;
         this.countryRates = countryRates;
+    }
+
+    public String getSystemCurrency() {
+        return systemCurrency;
     }
 
     public int getWorkingDaysInMonth() {
@@ -31,7 +37,8 @@ public class CalculatorConfig {
     @Override
     public String toString() {
         return "CalculatorConfig{" +
-                "workingDaysInMonth=" + workingDaysInMonth +
+                "systemCurrency=" + systemCurrency +
+                ", workingDaysInMonth=" + workingDaysInMonth +
                 ", countryRates=" + Arrays.toString(countryRates) +
                 '}';
     }
