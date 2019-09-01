@@ -1,4 +1,4 @@
-calculator:
+salaries:
   systemCurrency: PLN
   workingDaysInMonth: 22
   countryRates:
@@ -17,3 +17,7 @@ calculator:
       currencyCode: EUR
       incomeTaxPercentage: 20
       fixedCost: 800
+
+exchange-rates:
+  online:
+    base-url: https://api.exchangeratesapi.io/latest

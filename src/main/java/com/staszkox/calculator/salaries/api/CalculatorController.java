@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/calculator")
 public class CalculatorController {
 
-    private final CalculationServiceFacade serviceAdapter;
+    private final CalculationServiceFacadeImpl serviceAdapter;
 
     @Autowired
-    CalculatorController(CalculationServiceFacade serviceAdapter) {
+    CalculatorController(CalculationServiceFacadeImpl serviceAdapter) {
         this.serviceAdapter = serviceAdapter;
     }
 
     @CrossOrigin(origins = "*")
     @PostMapping("/net")
-    public ResponseEntity<NetCalculationResponse> netSalary(NetCalculationRequest request) {
+    public ResponseEntity<NetCalculationResponse> netSalary(@RequestBody NetCalculationRequest request) {
         NetCalculationResponse netSalary = serviceAdapter.calculateNetSalary(request);
         return ResponseEntity.ok(netSalary);
     }

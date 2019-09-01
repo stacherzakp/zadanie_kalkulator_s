@@ -10,7 +10,7 @@ app.controller('ctrl', function ($scope, $http) {
             $scope.countries = response.data.countries;
             $scope.isConfigLoaded = true;
         }, function (response) {
-            $scope.message = "System error."
+            $scope.message = response.body.message;
         });
 
     $scope.calculate = function (income, selectedCountry) {
@@ -24,7 +24,7 @@ app.controller('ctrl', function ($scope, $http) {
                 $scope.calculatedSalaryCurrency = response.data.currency;
                 $scope.message = "Salary calculated successfully."
             }, function (response) {
-                $scope.message = "Calculation error."
+                $scope.message = response.body.message;
             });
 
     };

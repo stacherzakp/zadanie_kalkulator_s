@@ -2,30 +2,30 @@ package com.staszkox.calculator.salaries.api
 
 import com.staszkox.calculator.salaries.api.model.CountryInfo
 import com.staszkox.calculator.salaries.api.model.NetCalculationRequest
-import com.staszkox.calculator.salaries.configuration.CalculatorConfig
 import com.staszkox.calculator.salaries.configuration.CountryRate
+import com.staszkox.calculator.salaries.configuration.SalariesConfig
 import com.staszkox.calculator.salaries.domain.SalaryCalculationService
 import com.staszkox.calculator.salaries.domain.model.MonthSalary
 import spock.lang.Specification
 
-class CalculationServiceFacadeSpec extends Specification {
+class CalculationServiceFacadeImplSpec extends Specification {
 
-    CalculatorConfig systemConfig
+    SalariesConfig systemConfig
     SalaryCalculationService salaryCalculationService
-    CalculationServiceFacade facade
+    CalculationServiceFacadeImpl facade
 
     void setup() {
         salaryCalculationService = Mock(SalaryCalculationService)
 
-        def polandRate = new CountryRate("PL", "Poland", "PLN", new BigDecimal(19), new BigDecimal(1200))
-        def englandRate = new CountryRate("UK", "England", "GBP", new BigDecimal(25), new BigDecimal(1500))
+        def polandRate = new CountryRate("Poland", "PLN", new BigDecimal(19), new BigDecimal(1200))
+        def englandRate = new CountryRate("England", "GBP", new BigDecimal(25), new BigDecimal(1500))
         CountryRate[] rates = [polandRate, englandRate]
 
         def systemCurrency = "PLN"
         def workingDaysInMonth = 22
 
-        systemConfig = new CalculatorConfig(systemCurrency, workingDaysInMonth, rates)
-        facade = new CalculationServiceFacade(salaryCalculationService, systemConfig)
+        systemConfig = new SalariesConfig(systemCurrency, workingDaysInMonth, rates)
+        facade = new CalculationServiceFacadeImpl(salaryCalculationService, systemConfig)
     }
 
     def "Run net salary calculation successfully"() {

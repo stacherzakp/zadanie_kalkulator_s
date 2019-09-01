@@ -5,18 +5,17 @@ import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 
 @SpringBootTest
-class CalculatorConfigSpec extends Specification {
+class SalariesConfigSpec extends Specification {
 
     @Autowired
-    private CalculatorConfig config
+    private SalariesConfig config
 
-    def "Test calculator load correctness"() {
+    def "Test salaries config load correctness"() {
 
         expect:
             config.systemCurrency == "PLN"
             config.workingDaysInMonth == 22
             config.countryRates.length == 3
-            config.countryRates[0].countryCode == "PL"
             config.countryRates[0].countryName == "Poland"
             config.countryRates[0].currencyCode == "PLN"
             config.countryRates[0].incomeTaxPercentage == 19
