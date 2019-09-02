@@ -1,7 +1,7 @@
 package com.staszkox.calculator.salaries.api;
 
 import com.staszkox.calculator.salaries.api.model.Error;
-import com.staszkox.calculator.salaries.domain.exception.ExchangeRateNotFound;
+import com.staszkox.calculator.salaries.domain.exception.ExchangeRateNotFoundException;
 import com.staszkox.calculator.salaries.domain.exception.TaxNotConfiguredException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +21,8 @@ public class ErrorHandlerControllerAdvice {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 
-    @ExceptionHandler(ExchangeRateNotFound.class)
-    public ResponseEntity<Error> handleExchangeRateNotFoundException(ExchangeRateNotFound e) {
+    @ExceptionHandler(ExchangeRateNotFoundException.class)
+    public ResponseEntity<Error> handleExchangeRateNotFoundException(ExchangeRateNotFoundException e) {
         Error error = new Error("Exchange rate for pair not found: [" + e.getBaseCurrency() + " - " + e.getExchangeCurrency() + "]");
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }

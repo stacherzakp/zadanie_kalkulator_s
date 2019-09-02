@@ -11,24 +11,24 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/calculator")
 public class CalculatorController {
 
-    private final CalculationServiceFacadeImpl serviceAdapter;
+    private final CalculationServiceFacade calculationServiceFacade;
 
     @Autowired
-    CalculatorController(CalculationServiceFacadeImpl serviceAdapter) {
-        this.serviceAdapter = serviceAdapter;
+    CalculatorController(CalculationServiceFacade calculationServiceFacade) {
+        this.calculationServiceFacade = calculationServiceFacade;
     }
 
     @CrossOrigin(origins = "*")
     @PostMapping("/net")
     public ResponseEntity<NetCalculationResponse> netSalary(@RequestBody NetCalculationRequest request) {
-        NetCalculationResponse netSalary = serviceAdapter.calculateNetSalary(request);
+        NetCalculationResponse netSalary = calculationServiceFacade.calculateNetSalary(request);
         return ResponseEntity.ok(netSalary);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/config")
     public ResponseEntity<ConfigurationResponse> configuration() {
-        ConfigurationResponse configuration = serviceAdapter.getCalculatorConfiguration();
+        ConfigurationResponse configuration = calculationServiceFacade.getCalculatorConfiguration();
         return ResponseEntity.ok(configuration);
     }
 }

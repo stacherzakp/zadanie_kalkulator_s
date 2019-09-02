@@ -2,7 +2,7 @@ package com.staszkox.calculator.salaries.domain.exchange;
 
 import com.staszkox.calculator.salaries.configuration.ExchangeRatesConfig;
 import com.staszkox.calculator.salaries.configuration.OnlineExchangeRatesConfig;
-import com.staszkox.calculator.salaries.domain.exception.ExchangeRateNotFound;
+import com.staszkox.calculator.salaries.domain.exception.ExchangeRateNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +30,7 @@ class ExchangeRatesApiIOFinder extends OnlineExchangeRateFinder<ExchangeRatesApi
         String fullUrl = onlineConfig.getBaseUrl() + queryParams;
 
         ExchangeRatesIOApiResponse rates = getRates(fullUrl)
-                .orElseThrow(() -> new ExchangeRateNotFound(baseCurrency, exchangeCurrency));
+                .orElseThrow(() -> new ExchangeRateNotFoundException(baseCurrency, exchangeCurrency));
 
         return rates.rates.get(exchangeCurrency);
     }
