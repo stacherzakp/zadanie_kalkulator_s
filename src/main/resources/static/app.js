@@ -10,7 +10,7 @@ app.controller('ctrl', function ($scope, $http) {
             $scope.countries = response.data.countries;
             $scope.isConfigLoaded = true;
         }, function (response) {
-            $scope.message = response.body.message;
+            $scope.message = response.data.message;
         });
 
     $scope.calculate = function (income, selectedCountry) {
@@ -22,9 +22,10 @@ app.controller('ctrl', function ($scope, $http) {
             .then(function (response) {
                 $scope.calculatedSalary = response.data.salary;
                 $scope.calculatedSalaryCurrency = response.data.currency;
-                $scope.message = "Salary calculated successfully."
+                $scope.message = null;
             }, function (response) {
-                $scope.message = response.body.message;
+                $scope.calculatedSalary = null;
+                $scope.message = response.data.message;
             });
 
     };
