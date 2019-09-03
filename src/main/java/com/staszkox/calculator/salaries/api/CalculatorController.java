@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/calculator")
 public class CalculatorController {
@@ -20,7 +22,7 @@ public class CalculatorController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/net")
-    public ResponseEntity<NetCalculationResponse> netSalary(@RequestBody NetCalculationRequest request) {
+    public ResponseEntity<NetCalculationResponse> netSalary(@Valid @RequestBody NetCalculationRequest request) {
         NetCalculationResponse netSalary = calculationServiceFacade.calculateNetSalary(request);
         return ResponseEntity.ok(netSalary);
     }

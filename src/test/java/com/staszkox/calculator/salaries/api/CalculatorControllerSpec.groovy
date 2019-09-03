@@ -50,6 +50,36 @@ class CalculatorControllerSpec extends Specification {
             result.getResponse().getStatus() == 200
     }
 
+    def "Call /calculator/net and handle invalid request"() {
+
+        given:
+            def request = new NetCalculationRequest()
+            request.currency = null
+            request.dailyIncome = null
+
+            def jsonRequest = new ObjectMapper().writeValueAsString(request)
+        when:
+            def result = mockMvc.perform(post("/calculator/net")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(jsonRequest)).andReturn()
+        then:
+            0 * calculationService.calculateNetSalary(_)
+            result.getResponse().getStatus() == 400
+    }
+
+    def "Call /calculator/net and handle invalid format request"() {
+
+        given:
+            def jsonRequest = "{\"currency\":\"PLN\",\"dailyIncome\":\"aaa\"}"
+        when:
+            def result = mockMvc.perform(post("/calculator/net")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(jsonRequest)).andReturn()
+        then:
+            0 * calculationService.calculateNetSalary(_)
+            result.getResponse().getStatus() == 400
+    }
+
     def "Handle ExchangeRateNotFoundException"() {
 
         when:

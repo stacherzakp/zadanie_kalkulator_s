@@ -34,28 +34,35 @@ class ContractSalaryCalculationService implements SalaryCalculationService {
     public MonthSalary calculateNet(CalculationParameters params) {
 
         if (isTaxConfigured(params.getDailyIncomeCurrency())) {
-
-            BigDecimal monthlyIncome = calculateMonthlyIncome(params);
-            BigDecimal tax = calculateTaxes(monthlyIncome, params);
-            BigDecimal netSalary = monthlyIncome.subtract(tax);
-            BigDecimal netSalaryInCalculationCurrency = toCalculationCurrency(netSalary, params);
-
-            return new MonthSalary(netSalaryInCalculationCurrency, params.getCalculationCurrency());
+            return calculateMonthSalary(params);
         } else {
             logger.error("Tax not configured for {}", params.getDailyIncomeCurrency());
             throw new TaxNotConfiguredException(params.getDailyIncomeCurrency());
         }
     }
 
+    private MonthSalary calculateMonthSalary(CalculationParameters params) {
+        BigDecimal monthlyIncome = calculateMonthlyIncome(params);
+        BigDecimal tax = calculateTaxes(monthlyIncome, params);
+        BigDecimal netSalary = monthlyIncome.subtract(tax);
+        BigDecimal netSalaryInCalculationCurrency = toCalculationCurrency(netSalary, params);
+
+        return new MonthSalary(netSalaryInCalculationCurrency, params.getCalculationCurrency());
+    }
+
     private BigDecimal toCalculationCurrency(BigDecimal netSalary, CalculationParameters params) {
 
         BigDecimal exchangeRate = BigDecimal.ONE;
 
-        if (!params.getCalculationCurrency().equals(params.getDailyIncomeCurrency())) {
+        if (isCurrencyExchangeNeeded(params)) {
             exchangeRate = exchangeRateFinder.findExchangeRate(params.getDailyIncomeCurrency(), params.getCalculationCurrency());
         }
 
         return netSalary.multiply(exchangeRate).setScale(2, RoundingMode.HALF_DOWN);
+    }
+
+    private boolean isCurrencyExchangeNeeded(CalculationParameters params) {
+        return !params.getCalculationCurrency().equals(params.getDailyIncomeCurrency());
     }
 
     private BigDecimal calculateTaxes(BigDecimal monthlyIncome, CalculationParameters params) {

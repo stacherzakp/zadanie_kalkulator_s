@@ -28,20 +28,29 @@ class CalculationServiceFacadeImpl implements CalculationServiceFacade {
 
     @Override
     public NetCalculationResponse calculateNetSalary(NetCalculationRequest request) {
-
-        CalculationParameters parameters = new CalculationParameters();
-        parameters.setCalculationCurrency(salariesConfig.getSystemCurrency());
-        parameters.setDailyIncome(request.getDailyIncome());
-        parameters.setDailyIncomeCurrency(request.getCurrency());
-
+        CalculationParameters parameters = toCalculationParams(request);
         MonthSalary monthSalary = salaryCalculationService.calculateNet(parameters);
-
-        return new NetCalculationResponse(monthSalary.getSalary(), monthSalary.getCurrency());
+        return toCalculationResponse(monthSalary);
     }
 
     @Override
     public ConfigurationResponse getCalculatorConfiguration() {
+        return buildConfigurationResponse();
+    }
 
+    private NetCalculationResponse toCalculationResponse(MonthSalary monthSalary) {
+        return new NetCalculationResponse(monthSalary.getSalary(), monthSalary.getCurrency());
+    }
+
+    private CalculationParameters toCalculationParams(NetCalculationRequest request) {
+        CalculationParameters parameters = new CalculationParameters();
+        parameters.setCalculationCurrency(salariesConfig.getSystemCurrency());
+        parameters.setDailyIncome(request.getDailyIncome());
+        parameters.setDailyIncomeCurrency(request.getCurrency());
+        return parameters;
+    }
+
+    private ConfigurationResponse buildConfigurationResponse() {
         List<CountryInfo> countries = salariesConfig.getCountryRatesAsList().stream()
                 .map(countryRate -> new CountryInfo(countryRate.getCountryName(), countryRate.getCurrencyCode()))
                 .collect(Collectors.toList());
