@@ -2,6 +2,7 @@ package com.staszkox.calculator.salaries.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -10,10 +11,10 @@ import java.util.Optional;
 public class SalariesConfig {
 
     private final String systemCurrency;
-    private final int workingDaysInMonth;
+    private final Integer workingDaysInMonth;
     private final CountryRate[] countryRates;
 
-    public SalariesConfig(String systemCurrency, int workingDaysInMonth, CountryRate[] countryRates) {
+    public SalariesConfig(String systemCurrency, Integer workingDaysInMonth, CountryRate[] countryRates) {
         this.systemCurrency = systemCurrency;
         this.workingDaysInMonth = workingDaysInMonth;
         this.countryRates = countryRates;
@@ -23,7 +24,7 @@ public class SalariesConfig {
         return systemCurrency;
     }
 
-    public int getWorkingDaysInMonth() {
+    public Integer getWorkingDaysInMonth() {
         return workingDaysInMonth;
     }
 
@@ -32,7 +33,7 @@ public class SalariesConfig {
     }
 
     public List<CountryRate> getCountryRatesAsList() {
-        return Arrays.asList(countryRates);
+        return countryRates != null ? Arrays.asList(countryRates) : new ArrayList<>();
     }
 
     public Optional<CountryRate> getCountryRate(String currencyCode) {
