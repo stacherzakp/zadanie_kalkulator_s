@@ -1,0 +1,20 @@
+salaries:
+  calculationCurrency: PLN
+  workingDaysInMonth: 22
+  countryRates:
+    - countryName: Poland
+      currencyCode: PLN
+      incomeTaxPercentage: 19
+      fixedCost: 1200
+    - countryName: England
+      currencyCode: GBP
+      incomeTaxPercentage: 25
+      fixedCost: 600
+    - countryName: Germany
+      currencyCode: EUR
+      incomeTaxPercentage: 20
+      fixedCost: 800
+
+exchange-rates:
+  online:
+    base-url: https://api.exchangeratesapi.io/latest

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script src="angular.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css"/>
+    <script src="app.js"></script>
+
+    <meta charset="UTF-8">
+    <title>Salary calculator</title>
+</head>
+
+<body>
+
+<div ng-app="calculator" ng-controller="ctrl" class="container">
+
+    <div ng-if="isConfigLoaded">
+        <h1>Calculate your monthly {{ systemCurrency }} salary in:</h1>
+        <br>
+        <select class="form-control" ng-model="selectedCountry"
+                ng-options="country as country.name for country in countries"
+                ng-init="selectedCountry = countries[0]">
+            <option value="{{ selectedCountry.name }}"></option>
+        </select>
+        <br>
+        Daily income: <input type="text" ng-model="income"> {{ selectedCountry.currency }}
+        <button class="btn btn-primary" ng-click="calculate(income, selectedCountry)">Calculate</button>
+        <br>
+        <br>
+        <div class="text-success" ng-show="calculatedSalary">
+            <h3>Monthly net salary: {{calculatedSalary + " " + calculatedSalaryCurrency}}</h3>
+        </div>
+        <br>
+    </div>
+
+    <div class="text-danger" ng-show="message">
+        <h3>{{ message }}</h3>
+    </div>
+
+</div>
+
+</body>
+</html>
