@@ -51,7 +51,7 @@ class CalculationServiceFacadeImplSpec extends Specification {
         when:
             def calculatorConfiguration = facade.getCalculatorConfiguration()
         then:
-            calculatorConfiguration.systemCurrency == systemConfig.systemCurrency
+            calculatorConfiguration.systemCurrency == systemConfig.calculationCurrency
             calculatorConfiguration.countries.size() == systemConfig.countryRates.length
             calculatorConfiguration.countries == [
                     new CountryInfo(systemConfig.countryRates[0].countryName, systemConfig.countryRates[0].currencyCode),

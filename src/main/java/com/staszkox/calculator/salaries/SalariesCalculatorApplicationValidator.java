@@ -45,7 +45,7 @@ class SalariesCalculatorApplicationValidator {
 
     private boolean validate(SalariesConfig salariesConfig) {
         return salariesConfig != null && salariesConfig.getWorkingDaysInMonth() != null
-                && salariesConfig.getSystemCurrency() != null
+                && salariesConfig.getCalculationCurrency() != null
                 && salariesConfig.getCountryRates() != null;
     }
 }

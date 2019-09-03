@@ -10,18 +10,18 @@ import java.util.Optional;
 @ConfigurationProperties(prefix = "salaries", ignoreInvalidFields = true)
 public class SalariesConfig {
 
-    private final String systemCurrency;
+    private final String calculationCurrency;
     private final Integer workingDaysInMonth;
     private final CountryRate[] countryRates;
 
-    public SalariesConfig(String systemCurrency, Integer workingDaysInMonth, CountryRate[] countryRates) {
-        this.systemCurrency = systemCurrency;
+    public SalariesConfig(String calculationCurrency, Integer workingDaysInMonth, CountryRate[] countryRates) {
+        this.calculationCurrency = calculationCurrency;
         this.workingDaysInMonth = workingDaysInMonth;
         this.countryRates = countryRates;
     }
 
-    public String getSystemCurrency() {
-        return systemCurrency;
+    public String getCalculationCurrency() {
+        return calculationCurrency;
     }
 
     public Integer getWorkingDaysInMonth() {
@@ -45,7 +45,7 @@ public class SalariesConfig {
     @Override
     public String toString() {
         return "SalariesConfig{" +
-                "systemCurrency=" + systemCurrency +
+                "calculationCurrency=" + calculationCurrency +
                 ", workingDaysInMonth=" + workingDaysInMonth +
                 ", countryRates=" + Arrays.toString(countryRates) +
                 '}';

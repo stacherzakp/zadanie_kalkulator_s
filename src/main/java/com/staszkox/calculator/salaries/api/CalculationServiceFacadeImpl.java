@@ -44,7 +44,7 @@ class CalculationServiceFacadeImpl implements CalculationServiceFacade {
 
     private CalculationParameters toCalculationParams(NetCalculationRequest request) {
         CalculationParameters parameters = new CalculationParameters();
-        parameters.setCalculationCurrency(salariesConfig.getSystemCurrency());
+        parameters.setCalculationCurrency(salariesConfig.getCalculationCurrency());
         parameters.setDailyIncome(request.getDailyIncome());
         parameters.setDailyIncomeCurrency(request.getCurrency());
         return parameters;
@@ -55,6 +55,6 @@ class CalculationServiceFacadeImpl implements CalculationServiceFacade {
                 .map(countryRate -> new CountryInfo(countryRate.getCountryName(), countryRate.getCurrencyCode()))
                 .collect(Collectors.toList());
 
-        return new ConfigurationResponse(salariesConfig.getSystemCurrency(), countries);
+        return new ConfigurationResponse(salariesConfig.getCalculationCurrency(), countries);
     }
 }

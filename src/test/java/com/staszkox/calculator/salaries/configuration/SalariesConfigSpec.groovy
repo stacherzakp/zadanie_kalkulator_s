@@ -13,7 +13,7 @@ class SalariesConfigSpec extends Specification {
     def "Test salaries config load correctness"() {
 
         expect:
-            config.systemCurrency == "PLN"
+            config.calculationCurrency == "PLN"
             config.workingDaysInMonth == 22
             config.countryRates.length == 3
             config.countryRates[0].countryName == "Poland"

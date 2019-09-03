@@ -1,5 +1,5 @@
 salaries:
-  systemCurrency: PLN
+  calculationCurrency: PLN
   workingDaysInMonth: 22
   countryRates:
     - countryName: Poland
